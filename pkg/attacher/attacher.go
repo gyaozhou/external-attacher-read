@@ -55,6 +55,9 @@ func NewAttacher(conn *grpc.ClientConn) Attacher {
 	}
 }
 
+// zhou: external-attacher only take care ControllerPublishVolume.
+//       The NodePublishVolume will be triggered by kubelet.
+
 func (a *attacher) Attach(ctx context.Context, volumeID string, readOnly bool, nodeID string, caps *csi.VolumeCapability, context, secrets map[string]string) (metadata map[string]string, detached bool, err error) {
 	req := csi.ControllerPublishVolumeRequest{
 		VolumeId:         volumeID,
@@ -71,6 +74,8 @@ func (a *attacher) Attach(ctx context.Context, volumeID string, readOnly bool, n
 	}
 	return rsp.PublishContext, false, nil
 }
+
+// zhou:
 
 func (a *attacher) Detach(ctx context.Context, volumeID string, nodeID string, secrets map[string]string) error {
 	req := csi.ControllerUnpublishVolumeRequest{

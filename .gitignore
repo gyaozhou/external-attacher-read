@@ -36,6 +36,8 @@
 *~
 \#*\#
 .\#*
+cscope.out
+cscope.files
 
 # Vim-related files
 [._]*.s[a-w][a-z]
